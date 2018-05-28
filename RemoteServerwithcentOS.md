@@ -34,5 +34,5 @@
 
 首先创建一个密钥对  
 
-    ssh-keygen -t rsa
+    sudo ssh-keygen -t rsa
 
