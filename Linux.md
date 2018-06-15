@@ -226,3 +226,55 @@ getfacl命令用于显示文件上设置的ACL信息，格式为“getfacl 文�
     [root@root ~]# visudo
     98 root ALL=(ALL) ALL
     99 linuxprobe ALL=NOPASSWD: /usr/sbin/poweroff
+
+
+## 文件存放
+/boot	开机所需文件—内核、开机菜单以及所需配置文件等  
+/dev	以文件形式存放任何设备与接口  
+/etc	配置文件  
+/home	用户主目录  
+/bin	存放单用户模式下还可以操作的命令  
+/lib	开机时用到的函数库，以及/bin与/sbin下面的命令要调用的函数  
+/sbin	开机过程中需要的命令  
+/media	用于挂载设备文件的目录  
+/opt	放置第三方的软件  
+/root	系统管理员的家目录  
+/srv	一些网络服务的数据文件目录  
+/tmp	任何人均可使用的“共享”临时目录  
+/proc	虚拟文件系统，例如系统内核、进程、外部设备及网络状态等  
+/usr/local	用户自行安装的软件  
+/usr/sbin	Linux系统开机时不会使用到的软件/命令/脚本  
+/usr/share	帮助与说明文件，也可放置共享文件  
+/var	主要存放经常变化的文件，如日志  
+/lost+found	当文件系统发生错误时，将一些丢失的文件片段存放在这里  
+
+### fdisk
+fdisk命令用于管理磁盘分区，格式为“fdisk  [磁盘名称]”，它提供了集添加、删除、转换分区等功能于一身的“一站式分区服务”。  
+m	查看全部可用的参数  
+n	添加新的分区  
+d	删除某个分区信息  
+l	列出所有可用的分区类型  
+t	改变某个分区的类型  
+p	查看分区表信息  
+w	保存并退出  
+q	不保存直接退出  
+
+### 硬盘分区、格式化、挂载
+硬盘挂载从sda-sdp
+
+    fdisk /dev/sdb
+    Command (m for help): n     //新建分区
+    Select (default p): p   //创建主分区 e创建扩展分区
+    Partition number (1-4, default 1): 1    //分区编号
+    First sector (2048-41943039, default 2048): //默认起始位置，直接回车
+    Last sector, +sectors or +size{K,M,G} (2048-41943039, default 41943039):+2G     //大小，此处为2G
+    Command (m for help): w     //保存
+
+    partprobe
+    partprobe       //输入两次，将分区信息同步至内核
+
+    mkfs        //分区格式化 mkfs mkfs.cramfs mkfs.ext3 mkfs.fat mkfs.msdos mkfs.xfsmkfs.btrfs mkfs.ext2 mkfs.ext4 mkfs.minix mkfs.vfat  对应后缀对应对应格式
+
+    mkdir /tempdir      //新文件夹
+    mount /dev/sdb1 /tempdir/       //关联挂载
+    df -h       //查看挂载状态
